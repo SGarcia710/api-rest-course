@@ -4,6 +4,10 @@ $matches = [];
 
 //preg_match en este caso verifica si la REQUEST_URI(La url que enviamos) recibida, coincide con el patrón del primer parametro 
 //Patrón: un string que empieza con una barra, tiene cualquier cosa que no sea una barra, después una barra y después cualquier cosa que no sea una barra /asdasd/asdasd 
+if ( in_array( $_SERVER["REQUEST_URI"], [ '/index.html', '/', '' ] ) ) {
+  echo file_get_contents( 'index.html' );
+  die;
+  }
 
 if ( preg_match( '/\/([^\/]+)\/([^\/]+)/', $_SERVER["REQUEST_URI"], $matches ) ) {
   //En caso de que haya coincidencia, lo que hago es generar las variables del $_GET

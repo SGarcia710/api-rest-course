@@ -1,0 +1,9 @@
+AJAX: Asynchronous JavaScript XML
+La clave aquí es el asincronismo, es decir, que el cliente no se queda pausado esperando a que el servidor le responda. Sino que envía su pedido y sigue trabajando, y cuando la información solicitada esté disponible, en ese momento se actua.
+
+Flujo de llamada AJAX:
+El cliente realiza un pedido HTTP GET
+Obtiene como respuesta HTML + JS
+En este momento es responsabilidad del Navegador interpretar ese HTML y dibujar la página, mientras que con uso de JS va a ir reaccionando a los estimulos que suceden (Hacer click en algún botón o algo por el estilo)
+Este servidor usualmente responderá con JSON a algún pedido del usuario al interactuar con la página.
+Cuando esa información llegue el propio JS será el responsable de tomar esta información y actualizar la página con los nuevos datos.

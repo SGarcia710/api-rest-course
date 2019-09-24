@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Página</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>ID Autor</th>
+          <th>ID Genero</th>
+        </tr>
+      </thead>
+      <tbody id="booksTable"></tbody>
+    </table>
+    <input type="button" value="Cargar libros" id="loadBooks" />
+    <div style="display: none;" class="" id="messages">
+      <p></p>
+    </div>
+    <div style="display: none;" class="" id="bookForm">
+      <hr />
+      <table>
+        <tr>
+          <td>Título:</td>
+          <td><input type="text" name="bookTitle" id="bookTitle" /></td>
+        </tr>
+        <tr>
+          <td>ID Autor:</td>
+          <td><input type="text" name="bookAuthorId" id="bookAuthorId" /></td>
+        </tr>
+        <tr>
+          <td>ID Genero:</td>
+          <td><input type="text" name="bookGenreId" id="bookGenreId" /></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="button" value="Guardar" id="bookSave" />
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"
+  ></script>
+  <script type="text/javascript">
+    const $loadBooks = document.getElementById('loadBooks');
+    const $messages = document.getElementById('messages');
+    const $booksTable = document.getElementById('booksTable');
+    const $bookForm = document.getElementById('bookForm');
+    const $bookSave = document.getElementById('bookSave');
+    const $bookTitle = document.getElementById('bookTitle');
+    const $bookAuthorId = document.getElementById('bookAuthorId');
+    const $bookGenreId = document.getElementById('bookGenreId');
+    const URL = 'http://localhost:8000/books';
+
+    function addBook(book) {
+      var newRow = $booksTable.insertRow();
+      var newCell1 = newRow.insertCell(0);
+      var newCell2 = newRow.insertCell(1);
+      var newCell3 = newRow.insertCell(2);
+      newCell1.innerHTML = book.title;
+      newCell2.innerHTML = book.id_author;
+      newCell3.innerHTML = book.id_genre;
+    }
+
+    $loadBooks.addEventListener('click', async () => {
+      $messages.firstElementChild.innerHTML = 'Cargando libros...';
+      // $messages.style.display = 'initial';
+      $messages.style.removeProperty('display');
+
+      const data = await fetch(URL);
+      const json = await data.json();
+
+      $messages.style.setProperty('display', 'none');
+
+      while ($booksTable.childElementCount) {
+        $booksTable.removeChild($booksTable.lastElementChild);
+      }
+
+      for (book in json) {
+        addBook(json[book]);
+      }
+
+      $bookForm.style.removeProperty('display');
+
+      $bookSave.addEventListener('click', async e => {
+        e.preventDefault();
+        var newBook = {
+          title: $bookTitle.value,
+          id_author: $bookAuthorId.value,
+          id_genre: $bookGenreId.value
+        };
+        $messages.firstElementChild.innerHTML = 'Guardando Libro...';
+        $messages.style.removeProperty('display');
+
+        try {
+          const response = await fetch(URL, {
+            method: 'POST',
+            body: JSON.stringify(newBook),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          const json = await response.json();
+          // console.log('Success:', JSON.stringify(json));
+          $messages.style.setProperty('display', 'none');
+          addBook(newBook);
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      });
+    });
+  </script>
+</html>

@@ -80,17 +80,17 @@ $books = [
   1 => [
     'title' => 'Lo que el viento se llevó',
     'id_author' => 2,
-    'id_genero' => 2,
+    'id_genre' => 2,
   ],
   2 => [
     'title' => 'La Iliada',
     'id_author' => 1,
-    'id_genero' => 1,
+    'id_genre' => 1,
   ],
   3 => [
     'title' => 'Ciudades de Papel',
     'id_author' => 3,
-    'id_genero' => 3,
+    'id_genre' => 3,
   ],
 ];
 
