@@ -23,3 +23,5 @@ if ( preg_match( '/\/([^\/]+)\/([^\/]+)/', $_SERVER["REQUEST_URI"], $matches ) )
   error_log('No matches');
   http_response_code( 404 );
 }
+
+// Este será el servidor inicial, ejecutará el server.php en casos coincidentes.

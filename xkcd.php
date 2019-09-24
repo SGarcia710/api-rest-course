@@ -7,4 +7,4 @@ $json = file_get_contents('https://xkcd.com/info.0.json');//String llamado json
 $data = json_decode( $json, true ); //Esto decodifica lo que le entra como un objeto
 //Se le pasa true para que lo decofique como un arreglo
 
-echo $data['img'].PHPP_EOL; //Muestro la key img y hago un salto de linea 
+echo $data['img'].PHP_EOL; //Muestro la key img y hago un salto de linea 

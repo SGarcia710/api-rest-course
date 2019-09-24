@@ -9,6 +9,7 @@
 // }
 
 //HAMC ejemplo: curl http://localhost:8000/books -H 'X-HASH: 0d1d84bb0563611c010e3ce7f0597b07673f6afc' -H 'X-UID: 1' -H 'X-TIMESTAMP: 1569306255' | jq
+// Esta forma de autentificación utiliza los hash generados por generate_hash.php
 // if (
 //   !array_key_exists('HTTP_X_HASH', $_SERVER) ||
 //   !array_key_exists('HTTP_X_TIMESTAMP', $_SERVER) ||
@@ -36,7 +37,7 @@
 //   die; //El cliente no está autenticado porque no tiene token
 // };
 
-// $url = 'http://localhost:8001'; //Aquí es donde estará escuchando el servidor de autentificación
+// $url = 'http://localhost:8001'; //Aquí es donde estará escuchando el servidor de autentificación (auth_server.php)
 
 // $ch = curl_init( $url );
 // curl_setopt(//Le configuro esta opción, para que obtenga el token que se ha enviado mediante el pedido
