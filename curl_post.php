@@ -3,7 +3,7 @@
 $data = [
   'username' => 'tecadmin',
   'password' => '012345678'
-]//se crea un arreglo con la información de login 
+];//se crea un arreglo con la información de login 
 
 $payload = json_encode($data);//La información se codifica en json para poder enviarla a través del post
 
@@ -20,4 +20,4 @@ curl_setopt($ch, CURLOPT_HTTPHEADER,
 );//Configuramos algunos encabezados que son de interes para que el servidor sepa que se le está enviando
 
 $result = curl_exce($ch); //Hacemos la ejecución de la petición, enviando la información al servidor y se guarda el resultado
-curl_close($ch) //cerramos la conexión.
+curl_close($ch); //cerramos la conexión.
